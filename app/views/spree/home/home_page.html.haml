@@ -43,26 +43,26 @@
   %h2 On Sale Today
   - @flash_sales.each do |f|
     -if f.home_page_visibility
-    %a.product_row{:href=>product_path(f)}
-      .sale_percent
-        = f.sale_percent.to_s + " %"
-        %span.small off
-      
-      %h3
-        %span.sale_badge
-          %span.big Sale
-          %span.time= "#{distance_of_time_in_words_to_now(f.flash_close_on)}" if f.is_flash_sale? 
-          %span.small left
-      = image_tag  f.images[0].attachment.url(:row) rescue ''
-      .details
-        %h3.name= f.name.titleize
-        .location
-          \//
-          = f.city.upcase + ", " + f.country.upcase
+      %a.product_row{:href=>product_path(f)}
+        .sale_percent
+          = f.sale_percent.to_s + " %"
+          %span.small off
         
+        %h3
+          %span.sale_badge
+            %span.big Sale
+            %span.time= "#{distance_of_time_in_words_to_now(f.flash_close_on)}" if f.is_flash_sale? 
+            %span.small left
+        = image_tag  f.images[0].attachment.url(:row) rescue ''
+        .details
+          %h3.name= f.name.titleize
+          .location
+            \//
+            = f.city.upcase + ", " + f.country.upcase
+          
     
   .coupons_container
     %h2= "Vouchers"
     - @coupons.each do |c|
       -if c.home_page_visibility
-      = render :partial => 'coupon', :locals => { :coupon => c }
+        = render :partial => 'coupon', :locals => { :coupon => c }
