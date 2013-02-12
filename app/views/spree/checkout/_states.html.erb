@@ -1,0 +1,10 @@
+<p>State or Territory<br />
+<% fields_for "bill_address" do |bill_form| %>
+  <% if !states.blank? %>
+    <%= bill_form.select :state, states.collect{|s| [s[0],s[0]]}, {:prompt => 'Select State'}, 
+        {:style => 'width: 180px'} %>
+  <% else %>
+    <%= bill_form.text_field :state %>
+  <% end %>
+<% end %>
+</p>

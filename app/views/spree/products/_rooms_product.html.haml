@@ -1,0 +1,12 @@
+
+-@product.f2r_hotel_inventory_items.each do |inv|
+ %div{:style=>"border-bottom: 1px dotted #CCCCCC;padding-bottom:10px;padding-top:5px"}
+
+  %span{:style=>'color:black;font-size:18px;font-family:Georgia,Times,"Times New '}=get_option_value(inv.room_type)
+  %br
+  %span{:style=>'color:#A8750A;font-size:16px;font-family:Georgia,Times,"Times New '}=inv.sub_heading
+  %br
+  %br
+  %p=inv.room_desc
+
+ 

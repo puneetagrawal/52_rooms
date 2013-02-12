@@ -1,0 +1,141 @@
+.columns.alpha.six{"data-hook" => "billing_fieldset_wrapper"}
+  %fieldset#billing{"data-hook" => ""}
+    = form.fields_for :bill_address do |bill_form|
+      %legend= t(:billing_address)
+      .inner{"data-hook" => "billing_inner"}
+        %p#bfirstname.field
+          = bill_form.label :firstname, t(:first_name)
+          %span.required *
+          %br/
+          = bill_form.text_field :firstname, :class => 'required'
+        %p#blastname.field
+          = bill_form.label :lastname, t(:last_name)
+          %span.required *
+          %br/
+          = bill_form.text_field :lastname, :class => 'required'
+        
+        %p#baddress1.field
+          = bill_form.label :address1, t(:street_address)
+          %span.required *
+          %br/
+          = bill_form.text_field :address1, :class => 'required'
+        %p#baddress2.field
+          = bill_form.label :address2, t(:street_address_2)
+          %br/
+          = bill_form.text_field :address2
+        %p#bcity.field
+          = bill_form.label :city, t(:city)
+          %span.required *
+          %br/
+          = bill_form.text_field :city, :class => 'required'
+        %p#bcountry.field
+          = bill_form.label :country_id, t(:country)
+          %span.required *
+          %br/
+          %span#bcountry
+            = bill_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'required'}
+        -if Spree::Config[:address_requires_state] 
+          %p{:class=>"field",:id=>"bstate"}
+            -have_states = !@order.bill_address.country.states.empty? 
+            =bill_form.label :state, t(:state) 
+            %span{:class=>"required"}*
+            %br
+            -state_elements = "#{[bill_form.collection_select(:state_id, @order.bill_address.country.states,:id, :name,{:include_blank => true},{:class => have_states ? 'required' : 'hidden',:disabled => !have_states}) + bill_form.text_field(:state_name,:class => !have_states ? 'required' : 'hidden',:disabled => have_states)].join.gsub('"', "'").gsub("\n", "")}"
+          
+            :javascript
+              document.write("#{state_elements}");         
+        
+          %noscript
+            = bill_form.text_field :state_name, :class => 'required'
+      
+
+        %span#state_check="123456" 
+
+        %p#bzipcode.field
+          = bill_form.label :zipcode, t(:zip)
+          %span.required *
+          %br/
+          = bill_form.text_field :zipcode, :class => 'required'
+        %p#bphone.field
+          = bill_form.label :phone, t(:phone)
+          %span.required *
+          %br/
+          = bill_form.phone_field :phone, :class => 'required'
+
+.columns.omega.six{"data-hook" => "shipping_fieldset_wrapper"}
+  %fieldset#shipping{"data-hook" => ""}
+    = form.fields_for :ship_address do |ship_form|
+      %legend= t(:shipping_address)
+      %p.field.checkbox{"data-hook" => "use_billing"}
+        = check_box_tag 'order[use_billing]', '1', (!(@order.bill_address.empty? && @order.ship_address.empty?) && @order.bill_address.same_as?(@order.ship_address))
+        = label_tag :order_use_billing, t(:use_billing_address), :id => 'use_billing'
+      .inner{"data-hook" => "shipping_inner"}
+        %p#sfirstname.field
+          = ship_form.label :firstname, t(:first_name)
+          %span.required *
+          %br/
+          = ship_form.text_field :firstname, :class => 'required'
+        %p#slastname.field
+          = ship_form.label :lastname, t(:last_name)
+          %span.required *
+          %br/
+          = ship_form.text_field :lastname, :class => 'required'
+        - if Spree::Config[:company]
+          %p#scompany.field
+            = ship_form.label :company, t(:company)
+            %br/
+            = ship_form.text_field :company
+        %p#saddress1.field
+          = ship_form.label :address1, t(:street_address)
+          %span.required *
+          %br/
+          = ship_form.text_field :address1, :class => 'required'
+        %p#saddress2.field
+          = ship_form.label :address2, t(:street_address_2)
+          %br/
+          = ship_form.text_field :address2
+        %p#scity.field
+          = ship_form.label :city, t(:city)
+          %span.required *
+          %br/
+          = ship_form.text_field :city, :class => 'required'
+        %p#scountry.field
+          = ship_form.label :country_id, t(:country)
+          %span.required *
+          %br/
+          %span#scountry
+            = ship_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'required'}
+
+        -if Spree::Config[:address_requires_state] 
+          %p{:class=>"field",:id=>"sstate"}
+            -have_states = !@order.ship_address.country.states.empty? 
+            =ship_form.label :state, t(:state) 
+            %span{:class=>"required"}*
+            %br
+            -state_elements = "#{[ship_form.collection_select(:state_id, @order.ship_address.country.states,:id, :name,{:include_blank => true},{:class => have_states ? 'required' : 'hidden',:disabled => !have_states}) + ship_form.text_field(:state_name,:class => !have_states ? 'required' : 'hidden',:disabled => have_states)].join.gsub('"', "'").gsub("\n", "")}"
+          
+            :javascript
+              document.write("#{state_elements}");         
+        
+          %noscript
+            = ship_form.text_field :state_name, :class => 'required'
+          
+        %p#szipcode.field
+          = ship_form.label :zipcode, t(:zip)
+          %span.required *
+          %br/
+          = ship_form.text_field :zipcode, :class => 'required'
+        %p#sphone.field
+          = ship_form.label :phone, t(:phone)
+          %span.required *
+          %br/
+          = ship_form.phone_field :phone, :class => 'required'
+        - if Spree::Config[:alternative_shipping_phone]
+          %p#saltphone.field
+            = ship_form.label :alternative_phone, t(:alternative_phone)
+            %br/
+            = ship_form.phone_field :alternative_phone
+
+%hr.clear/
+.form-buttons{"data-hook" => "buttons"}
+  = submit_tag t(:save_and_continue), :class => 'continue button primary'

@@ -1,0 +1,10 @@
+= render :partial => 'spree/shared/error_messages', :locals => { :target => @variant }
+= form_for [:admin, @product, @variant] do |f|
+  %fieldset{"data-hook" => "admin_variant_new_form"}
+    = render :partial => 'form', :locals => { :f => f }
+    = render :partial => 'spree/admin/shared/new_resource_links'
+%div{:style=>"margin-top:90px"} 
+  = form_for @variant, :url=>'/admin/create_variant_xls', :html => { :multipart => true } do |f|
+    =label_tag "Select an Excel File :"
+    =hidden_field_tag "product_params",@product.permalink
+    \#{f.file_field :excel_file}    #{submit_tag 'Submit'}
