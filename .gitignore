@@ -18,10 +18,8 @@
 /public/spree
 *.*~
 *~
-<<<<<<< HEAD
-=======
+Gemfile.lock
 
->>>>>>> 76f5574fa34f567496d1421082c2d8d58a4c9227
 
 *.gem
 *.rbc
