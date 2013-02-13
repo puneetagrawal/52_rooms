@@ -56,6 +56,7 @@ Spree::Product.class_eval do
     string  :city
     string  :country
     string  :star_rating
+    string  :property_type
     string  :amenities, :multiple => true
     string  :search_coupon
     integer :price, :using => :starting_price

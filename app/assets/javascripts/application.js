@@ -11,6 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //= require jquery
 //= require jquery_ujs
+//= require new_style
+//= require jquery_new_home
 //= require_directory ./store
 
 /*

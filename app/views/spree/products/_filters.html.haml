@@ -37,10 +37,10 @@
     - @search.facet(:product_type).rows.each do |c|
       -if(c.value=="")
         - next
-      - unless params[:pt]
-        = link_to_add_filter(c.value, c.count, {:pt=>c.value}).html_safe
+      - unless params[:ht]
+        = link_to_add_filter(c.value, c.count, {:ht=>c.value}).html_safe
       - else
-        = link_to_remove_filter("#{c.value}", {:pt=>c.value}).html_safe
+        = link_to_remove_filter("#{c.value}", {:ht=>c.value}).html_safe
   %br
   - if @search.facet(:property_type)
     %h3 Property Type

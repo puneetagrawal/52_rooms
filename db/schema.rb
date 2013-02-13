@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211055324) do
+ActiveRecord::Schema.define(:version => 20130211134259) do
 
   create_table "f2r_hotel_inventory_items", :force => true do |t|
     t.integer  "product_id"
@@ -370,7 +370,7 @@ ActiveRecord::Schema.define(:version => 20130211055324) do
   add_index "spree_product_scopes", ["product_group_id"], :name => "index_product_scopes_on_product_group_id"
 
   create_table "spree_products", :force => true do |t|
-    t.string   "name",                     :default => "", :null => false
+    t.string   "name",                     :default => "",   :null => false
     t.text     "description"
     t.datetime "available_on"
     t.datetime "deleted_at"
@@ -379,9 +379,9 @@ ActiveRecord::Schema.define(:version => 20130211055324) do
     t.string   "meta_keywords"
     t.integer  "tax_category_id"
     t.integer  "shipping_category_id"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
-    t.integer  "count_on_hand",            :default => 0,  :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "count_on_hand",            :default => 0,    :null => false
     t.string   "street_address"
     t.string   "city"
     t.string   "state"
@@ -415,6 +415,8 @@ ActiveRecord::Schema.define(:version => 20130211055324) do
     t.text     "coupon_policies"
     t.boolean  "featured"
     t.string   "search_coupon"
+    t.boolean  "home_page_visibility",     :default => true
+    t.string   "coupon_text"
   end
 
   add_index "spree_products", ["available_on"], :name => "index_spree_products_on_available_on"
@@ -700,6 +702,7 @@ ActiveRecord::Schema.define(:version => 20130211055324) do
     t.integer  "f2r_hotel_inventory_item_id"
     t.date     "f2r_available_on"
     t.integer  "option_value_id"
+    t.text     "coupon_description"
   end
 
   add_index "spree_variants", ["product_id"], :name => "index_spree_variants_on_product_id"

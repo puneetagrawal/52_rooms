@@ -10,11 +10,11 @@
  *
  *= require_self
  *= require store/jquery-ui-1.9.2.custom.css 
- 
  *= require screen
  *= require spree_overrides
  *= require datepicker
  *= require custom_style.css
+ *= require new_style.css
  */
 
 @font-face {

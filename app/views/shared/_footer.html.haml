@@ -1,20 +1,47 @@
-#footer.clearfix
-  .fwc
-    %a#scrolltop{:href=>"#"}
-      Top
-    .col
-      %h3 About
-      - ["About Us", "Contact Us", "Feature Your Business", "Terms of Service", "Feedback", "Twitter"].each do |page|
-        = link_to page, ('/' + page.parameterize)
-    .col
-      %h3 Sales
-      - ["This Week's Sale", "Hot Sales Today"].each do |page|
-        = link_to page, "#"
-    .col
-      %h3 Destinations
-      - ["India", "Places in Asia", "Europe"].each do |page|
-        = link_to page, "#"
-    .col
-      %h3 Tours
-      - ["India", "Places in Asia", "Europe"].each do |page|
-        = link_to page, "#"
+%footer
+  %article
+    .footer_nav.fl
+      %h1 About
+      %ul
+        - ["About Us", "Contact Us", "Feature Your Business", "Terms of Service", "Feedback", "Twitter"].each do |page|
+          %li
+            = link_to page, ('/' + page.parameterize)
+        
+    .footer_nav.fl
+      %h1 Sales
+      %ul
+        - ["This Week's Sale", "Hot Sales Today"].each do |page|
+          %li
+            = link_to page, "#"
+        
+    .footer_nav.fl
+      %h1 Destinations
+      %ul        
+        - ["India", "Places in Asia", "Europe"].each do |page|
+          %li
+            = link_to page, "#"
+        
+    .footer_nav.fl
+      %h1 Tours
+      %ul
+        - ["Honeymoon", "London", "Beach Hotels", "Honeymoon", "London", "Beach Hotels"].each do |page|
+          %li
+            = link_to page, "#"
+        
+    .footer_nav_right.fl
+      .footerTop
+        %img{:src => "../assets/icon_top_white_arrow.png"}/
+        %a{:href => "#"} Top
+      .clear
+      .footerBottom
+        %p.follow
+          Follow Us 0n
+          %a.twit{:href => "#"}
+          %a.fb{:href => "#"}
+        %p.clear
+        %p
+          Copyright 2012.
+          %a{:href => "#"} WWW.52ROOMS.COM
+        %p All Rights Reserved.
+        %p.clear
+    .clear

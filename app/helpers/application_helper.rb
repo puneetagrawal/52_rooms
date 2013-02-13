@@ -43,6 +43,7 @@ module ApplicationHelper
   end
 
   def link_to_add_filter_img(facet_row_name, facet_row_value, params, class_name="add_filter")
+    
     r = {}
     r[:value] = facet_row_name
     r[:count] = facet_row_value

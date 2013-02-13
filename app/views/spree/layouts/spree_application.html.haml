@@ -1,14 +1,25 @@
 !!!
 %html
   %head
-    = stylesheet_link_tag "application", :media => "screen, projection", :rel => "stylesheet", :type => "text/css"
-    = javascript_include_tag "application"
-    = stylesheet_link_tag "http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css", :rel => "stylesheet", :type => "text/css"
-    = javascript_include_tag "http://code.jquery.com/ui/1.9.2/jquery-ui.js"
-    = javascript_include_tag "jquery.formatCurrency-1.4.0.js"
-    = javascript_include_tag "jquery.formatCurrency.as-IN.js"
-    
-    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false"
+    - if controller_name == "home" and action_name == "home_page"
+
+      = stylesheet_link_tag "new_style", :media => "screen, projection", :rel => "stylesheet", :type => "text/css"
+      = stylesheet_link_tag "http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css", :rel => "stylesheet", :type => "text/css"
+      = javascript_include_tag "application"
+      = javascript_include_tag "http://code.jquery.com/ui/1.9.2/jquery-ui.js"
+      = javascript_include_tag "jquery.formatCurrency-1.4.0.js"
+      = javascript_include_tag "jquery.formatCurrency.as-IN.js"
+      = javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false"
+
+    - else
+
+      = stylesheet_link_tag "application", :media => "screen, projection", :rel => "stylesheet", :type => "text/css"
+      = javascript_include_tag "application"
+      = stylesheet_link_tag "http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css", :rel => "stylesheet", :type => "text/css"
+      = javascript_include_tag "http://code.jquery.com/ui/1.9.2/jquery-ui.js"
+      = javascript_include_tag "jquery.formatCurrency-1.4.0.js"
+      = javascript_include_tag "jquery.formatCurrency.as-IN.js"
+      = javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false"
    
 
 %body

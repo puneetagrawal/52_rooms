@@ -7,7 +7,7 @@ Spree::HomeController.class_eval do
     @products = Spree::Product.active.order(:created_at => "DESC").limit(5)
     @featured = Spree::Product.active.featured.order(:created_at => "DESC").limit(5)
     @flash_sales = Spree::Product.active_flash_sales.flash_sales.where(:deleted_at=>nil).order(:created_at => "DESC").limit(5)
-    @coupons = Spree::Product.coupons.limit(5).active
+    @coupons = Spree::Product.coupons.limit(4).active
   end
 
   def about_us

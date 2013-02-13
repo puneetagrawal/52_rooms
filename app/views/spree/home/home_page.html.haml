@@ -1,68 +1,263 @@
-#featured_slider
-  = image_tag @featured.first.images.first.attachment.url(:featured), :class=>"main_featured_image"   rescue ''
-  %ul#controls
-    - @featured.each do |f|
-      %li
-        %a.featured_nav_control{:href=>"#", :rel => "#{ f.images.first.attachment.url(:featured) unless f.images.blank?}", :data => {:country => (f.country.upcase if !f.country.nil?), :city => (f.city.upcase if !f.city.nil?), :name => f.name.titleize, :sale => f.sale_percent,:product_type=>f.product_type ,:time =>(distance_of_time_in_words_to_now(f.flash_close_on) if !f.flash_close_on.nil? )}, :url=> product_url(f)}= ( (f.city.nil? &&  f.product_type=="Coupon") ? f.coupon_text : f.city.upcase)
-  - p = @featured[0]
-  
-  %a.info{:href=>(product_url(p))}
-    .big_discount 
-      = p.sale_percent rescue ''
-      = "% off"
-    .hotel_name
-      .name= p.name rescue ''
-      .location= "// " + p.city.upcase + ", " + p.country.upcase rescue ''      
-      .timer
-        .sale= "Sale "
-        .time=  distance_of_time_in_words_to_now p.flash_close_on if p.is_flash_sale?
-        .off
-          LEFT
+%wrapper
+  / header starts
+  %section
+    .head_section
+      %article
+        / <img src="assets/main_banner.png"/>
+        .hotelHomeBg
+          .selected_place_content
+            = form_tag products_url, :method => "get" , :class=>"fl" do
+              %h1 Reserve a Great Hotel
+              .field
+                %input.hotel_info{:type => "text", :placeholder => "Enter destination / hotel name", :name => "keywords"}/
+              %p Optional
+              .field
+                %input.hotel_info{:type => "text", :placeholder => "Enter Arriving Date", :name=>"al", :id => "al_datepicker"}/
+              .field
+                %input.hotel_info{:type => "text", :placeholder => "Enter Leaving Date", :name=>"ah", :id => "ah_datepicker"}/
+              .btn-group.fl
+                %a.btn.dropdown-toggle
+                  %p.fl 1 Adult
+                  %span.caret
+                  %ul.agrGrp
+                    %li 1 Adult
+                    %li 2  Adult
+                    %li 3  Adult
+                    %li 4  Adult
+              .btn-group.fl.mL15
+                %a.btn.dropdown-toggle
+                  %p.fl 1 Adult
+                  %span.caret
+                  %ul.agrGrp
+                    %li 1 Adult
+                    %li 2  Adult
+                    %li 3  Adult
+                    %li 4  Adult
+              .clear
+              %input.search_btn{:type=>"submit", :name=>"Search", :value=>"Search", :class => "actions field"}/
+              %a.clear_date{:href => "#", :id=>"clear_dates"} Clear Dates
+          .homeMenuDetail
+            .homeContent
+              .box.visible
+                = image_tag @featured.first.images.first.attachment.url(:featured), :class=>"main_featured_image"   rescue ''
+                - p = @featured[0]
+                %a.w614.fr.info{:href=>(product_url(p))}
+                  %span.discount.big_discount
+                    = p.sale_percent rescue ''
+                    = "%off"
+                  .discount_place.hotel_name
+                    %p.name= p.name rescue ''
+                    %span.location= "// " + p.city.upcase + ", " + p.country.upcase rescue ''
+              .navBackground
+                %a#prev.prev.fl
+                  %img{:src => "assets/prev.png"}/
+                %ul#controls.menu
+                  - @featured.each do |f|
+                    %li
+                      %a.featured_nav_control{:href=>"#", :rel => "#{ f.images.first.attachment.url(:featured) unless f.images.blank?}", :data => {:country => (f.country.upcase if !f.country.nil?), :city => (f.city.upcase if !f.city.nil?), :name => f.name.titleize, :sale => f.sale_percent,:product_type=>f.product_type ,:time =>(distance_of_time_in_words_to_now(f.flash_close_on) if !f.flash_close_on.nil? )}, :url=> product_url(f)}= ( (f.city.nil? &&  f.product_type=="Coupon") ? f.coupon_text : f.city.upcase)
+                %a#next.next.fl
+                  %img{:src => "assets/next.png"}/
+                .clear
+  %section
+    %article
+      .middleSection
+        %h1
+          On Sale Today
+        - @flash_sales.each do |f|
+          -if f.home_page_visibility
+            .middleImages
+              %a.product_row{:href=>product_path(f)}
+                = image_tag  f.images[0].attachment.url(:row), :width => "908px", :height => "242px" rescue ''
+                .middleImagesDetails
+                  %h2.name= f.name.titleize
+                  %span
+                  .clear
+                  %p.location
+                    \//
+                    = f.city.upcase + ", " + f.country.upcase
+                .saleDays.timer
+                  %h1
+                    %span.sale= "Sale "
+                    %p.time= "0" + (rand(9)+1).to_s
+                    %p.daysLeft.left DAYS left
+                .saleOff
+                  %h1
+                    = f.sale_percent.to_s + "%"
+                    %span off
 
-  #search_form
-    .heading Reserve a Great Hotel
-    = form_tag products_url, :method => "get" do
-      .field
-        %input{:type => "text", :placeholder => "Enter destination / hotel name", :name => "keywords"}
-      .field.small
-        Optional
-      .field        
-        %input{:type => "text", :placeholder => "Enter Arriving Date", :name=>"al", :id => "al_datepicker"} 
-      .field        
-        %input{:type => "text", :placeholder => "Enter Leaving Date", :name=>"ah", :id => "ah_datepicker"}
-      -# .field.split2
-      -#   %input{:type => "text", :placeholder => "Adults"}
-      -#   %input{:type => "text", :placeholder => "children"}
-      .actions.field
-        %input{:type=>"submit", :name=>"Search", :value=>"Search"}
-      .field
-        %a.clear{:href=>"#",:id=>"clear_dates"} Clear your dates
-
-
-#products_listing
-  %h2 On Sale Today
-  - @flash_sales.each do |f|
-    -if f.home_page_visibility
-    %a.product_row{:href=>product_path(f)}
-      .sale_percent
-        = f.sale_percent.to_s + " %"
-        %span.small off
-      
-      %h3
-        %span.sale_badge
-          %span.big Sale
-          %span.time= "#{distance_of_time_in_words_to_now(f.flash_close_on)}" if f.is_flash_sale? 
-          %span.small left
-      = image_tag  f.images[0].attachment.url(:row) rescue ''
-      .details
-        %h3.name= f.name.titleize
-        .location
-          \//
-          = f.city.upcase + ", " + f.country.upcase
-        
-    
-  .coupons_container
-    %h2= "Vouchers"
-    - @coupons.each do |c|
-      -if c.home_page_visibility
-      = render :partial => 'coupon', :locals => { :coupon => c }
+        .viewMore
+          %a{:href => "#"} View More
+      .middleSection
+        %h1
+          Destination
+          %span //  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        %h1.country India
+        .middleImages.destination
+          %img{:src => "assets/oberoi.png"}/
+          .middleImagesDetails.destinationDetails
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destination
+          %img{:src => "assets/oberoi.png"}/
+          .middleImagesDetails.destinationDetails
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destination
+          %img{:src => "assets/oberoi.png"}/
+          .middleImagesDetails.destinationDetails
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destination
+          %img{:src => "assets/oberoi.png"}/
+          .middleImagesDetails.destinationDetails
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .clear
+        .viewMore
+          %a{:href => "#"} View More
+        %h1.country.bdrtop Asia
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .clear
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .clear
+        .viewMore
+          %a{:href => "#"} View More
+        %h1.country.bdrtop Europe
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .middleImages.destinationAsia
+          %img{:src => "assets/shangril.png"}/
+          .middleImagesDetails.destinationDetailsAsia
+            %h2 The Taj Mahal
+            %a{:href => "#"}
+            .clear
+            %p //  Delhi, India
+        .clear
+        .viewMore
+          %a{:href => "#"} View More
+      .middleSection
+        %h1
+          Others
+          %span //  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        - @coupons.each do |c|
+          -if c.home_page_visibility
+            = render :partial => 'coupon', :locals => { :coupon => c }
+        .clear
+        .viewMore
+          %a{:href => "#"} View More
+      .middleSection
+        %h1
+          Collections
+          %span //  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        .middleImages.others
+          %img{:src => "assets/theOmniBerkshire.png"}/
+          .middleImagesDetails.middleImagesDetailsOthers
+            %h2
+              The Taj
+              %p
+                Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
+                Praesent dolor ligula..
+              .clear
+            %a{:href => "#"}
+            .clear
+        .middleImages.others
+          %img{:src => "assets/theOmniBerkshire.png"}/
+          .middleImagesDetails.middleImagesDetailsOthers
+            %h2
+              The Taj
+              %p
+                Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
+                Praesent dolor ligula..
+              .clear
+            %a{:href => "#"}
+            .clear
+        .middleImages.others
+          %img{:src => "assets/theOmniBerkshire.png"}/
+          .middleImagesDetails.middleImagesDetailsOthers
+            %h2
+              The Taj
+              %p
+                Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
+                Praesent dolor ligula..
+              .clear
+            %a{:href => "#"}
+            .clear
+        .middleImages.others
+          %img{:src => "assets/theOmniBerkshire.png"}/
+          .middleImagesDetails.middleImagesDetailsOthers
+            %h2
+              The Taj
+              %p
+                Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
+                Praesent dolor ligula..
+              .clear
+            %a{:href => "#"}
+            .clear
+        .clear
+        .viewMore
+          %a{:href => "#"} View More
+      .clear

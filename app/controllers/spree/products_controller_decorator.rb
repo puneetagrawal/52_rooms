@@ -41,8 +41,8 @@ Spree::ProductsController.class_eval do
       if params[:cn].present?
         with :country, params[:cn]
       end           
-      if params[:pt].present?
-        with :product_type, params[:pt]
+      if params[:ht].present?
+        with :product_type, params[:ht]
       end
       if params[:tp].present?
         with :property_type, params[:tp]
