@@ -20,7 +20,8 @@ F2r::Application.routes.draw do
  
   Spree::Core::Engine.routes.append do
     match "/destinations", :to => "products#dest", :via => :get, :controller => "spree/products", :action => "dest"
-    match "/sales", :to => "products#index", :pt => Spree::Product::PRODUCT_TYPES[0]
+    #match "/sales", :to => "products#index", :pt => Spree::Product::PRODUCT_TYPES[0]
+    match "/sales", :to => "products#index", :via => :get, :controller => "spree/products", :action => "index"
     match '/about-us', :to => "home#about_us"
     match '/contact-us', :to => "home#contact_us"   
     resources :orders do
