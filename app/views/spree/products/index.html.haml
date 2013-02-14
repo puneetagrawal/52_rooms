@@ -4,23 +4,33 @@
 -#   - else
 -#     = render :partial => 'spree/shared/taxonomies'
 = render :partial => "filters"
-#search_results{"data-hook" => "homepage_products"}
+.middleSectionRightSearch#search_results{"data-hook" => "homepage_products"}
   - unless @products.empty?
-    %h2.search_title Search Results
-    #sorts
-      %ul
-        %span Sort by
-        - ["Relevance", "Name", "Price"].each do |x|
-          %li
-          = link_to_sort x
+    %h1 Search
+    %p
+      \// Our experts have selected
+      %span #{@products.count} Hotel(s)
+      for you
+    .sortSearch
+      .sortBy
+        %span Sort by:
+      %ul.searchMenu  
+        - ["Relevance", "Name", "Price", "Rating"].each do |x|
+          - @class_name = get_active_class x
+          - if @class_name == "active"
+            %li.active 
+              = link_to_sort x
+          - else
+            %li
+              =link_to_sort x
   .pagi
-    = paginate @search.hits
+    = paginate @search.hits, :outer_window => 1
+  %br
   %br
     - if @products.empty?
       %h6.search-results-title= t(:no_products_found)
     - else
       = render :partial => 'spree/shared/products', :locals => { :products => @products, :taxon => @taxon }
-  %br
   .pagi
-    = paginate @search.hits
+    = paginate @search.hits, :outer_window => 1
   %br

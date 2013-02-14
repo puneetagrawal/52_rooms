@@ -3,57 +3,27 @@
 :javascript
   function a(v){
     window.location.assign(v);}
-
-#filters 
+#filters
   %form
-    %h2 Reserve a Great Hotel
-    .field.date_range
-      %label Checkin
-      %input{:type => "text", :name=>"al", :placeholder=>"Vacation start date", :value=>params[:al], :id=>"al_datepicker"}
-      %br
-      %br
-      %label Checkout
-      %input{ :type => "text",:name=>"ah", :placeholder=>"Vacation end date", :value=>params[:ah], :id=>"ah_datepicker"}
-      %br
-      %br
-      %input.btn{:type => "submit", :value=>"Go"}
-      %br
-    
+    .middleSectionLeftSearchDetails
+      %input.cityField{:type => "text", :placeholder => "Enter destination /hotel name", :name => "keywords"}
+      %input.cityField{:type => "text", :name=>"al", :placeholder=>"Enter Arrival Date", :value=>params[:al], :id=>"al_datepicker"}
+      %input.cityField{ :type => "text",:name=>"ah", :placeholder=>"Enter Departure Date", :value=>params[:ah], :id=>"ah_datepicker"}
+      %input.search_bn.marSearch{:type => "submit", :value=>"Search"}
+  %br    
+  #blank_area    
   %br
-  %br
-  %br
-  %h2 Modify your search
-  %br
-    %h3 Price Range  
-    .field.price_range
-      Price from
-      %input#price_min{:type=>"text", :name=>"pl", :placeholder=>"from", :value=>params[:pl]}
-      to
-      %input#price_max{:type=>"text", :name=>"ph", :placeholder=>"to", :value=>params[:ph]}
-      #price_slider 
-      %br
-  - if @search.facet(:product_type)
-    %h3 Show me only
-    - @search.facet(:product_type).rows.each do |c|
-      -if(c.value=="")
-        - next
-      - unless params[:ht]
-        = link_to_add_filter(c.value, c.count, {:ht=>c.value}).html_safe
-      - else
-        = link_to_remove_filter("#{c.value}", {:ht=>c.value}).html_safe
-  %br
-  - if @search.facet(:property_type)
-    %h3 Property Type
-    - @search.facet(:property_type).rows.each do |c|
-      -if(c.value=="")
-        - next 
-      - unless params[:tp]
-        = link_to_add_filter(c.value, c.count, {:tp=>c.value}).html_safe
-      - else
-        = link_to_remove_filter("#{c.value}", {:tp=>c.value}).html_safe       
-    %br
-  - if @search.facet(:star_rating)
-    %h3 Star Ratings
+    %h2 Price Range  
+    .field.price_range.small
+      Rs.
+      %input#price_min{:type=>"label", :name=>"pl", :placeholder=>"from", :value=>params[:pl]} - Rs.
+      %input#price_max{:type=>"text", :name=>"ph", :placeholder=>"to", :value=>params[:ph]}      
+      #price_slider      
+      Select Your Price Range 
+      #dotted_line    
+
+  - if @search.facet(:star_rating) && @products.count > 0    
+    %h2 Star Rating
     - @search.facet(:star_rating).rows.each do |c|
       -if(c.value=="")
         - next
@@ -61,10 +31,11 @@
         = link_to_add_filter_img(c.value, c.count, {:st=>c.value}).html_safe
       - else
         = link_to_remove_filter_img("#{c.value}", {:st=>c.value}).html_safe
-
+    #dotted_line
     %br
-  - if @search.facet(:amenities)
-    %h3 Amenities
+
+  - if @search.facet(:amenities) && @products.count > 0
+    %h2 Amenities
     - @search.facet(:amenities).rows.each do |c|           
       -if(c.value=="")
         - next
@@ -73,22 +44,38 @@
         = link_to_remove_filter_img("#{c.value}", {:am=>c.value}).html_safe
       -else 
         = link_to_add_filter_img(c.value, c.count, {:am=>c.value}).html_safe
-  
+    #dotted_line
     %br
+  - if @search.facet(:property_type) && @products.count > 0
+    %h2 Property Type
+    - @search.facet(:property_type).rows.each do |c|
+      -if(c.value=="")
+        - next 
+      - unless params[:tp]
+        = link_to_add_filter(c.value, c.count, {:tp=>c.value}).html_safe
+      - else
+        = link_to_remove_filter("#{c.value}", {:tp=>c.value}).html_safe       
+    #dotted_line  
+    %br
+  #blank_area
+  %br      
+  %h2 Map //View ur Hotel location
+  %img#map_image{:src => "https://maps.googleapis.com/maps/api/staticmap?center=India,NY&zoom=14&size=300x300&sensor=false"}    
+
+  -  # We are Not Using this code for Now.
+
   - if @search.facet(:country)
-    %h3 Countries
+    %h2 Countries
     - @search.facet(:country).rows.each do |c|
       -if(c.value=="")
         - next
       - unless params[:cn]
         = link_to_add_filter(c.value, c.count, {:cn=>c.value}).html_safe
       - else
-        = link_to_remove_filter("#{c.value}", {:cn=>c.value}).html_safe
-        
-    %br
+        = link_to_remove_filter("#{c.value}", {:cn=>c.value}).html_safe  
     
   - if @search.facet(:city)
-    %h3 Cities
+    %h2 Cities
     - @search.facet(:city).rows.each do |c|
       -if(c.value=="")
         - next
@@ -96,4 +83,14 @@
         = link_to_add_filter(c.value, c.count, {:ct=>c.value}).html_safe
       - else
         = link_to_remove_filter("#{c.value}", {:ct=>c.value}).html_safe
+
+  - if @search.facet(:product_type)
+    %h2 Show me only
+    - @search.facet(:product_type).rows.each do |c|
+      -if(c.value=="")
+        - next
+      - unless params[:pt]
+        = link_to_add_filter(c.value, c.count, {:pt=>c.value}).html_safe
+      - else
+        = link_to_remove_filter("#{c.value}", {:pt=>c.value}).html_safe      
 

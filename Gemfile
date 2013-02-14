@@ -55,6 +55,7 @@ gem 'spree_promo', '1.2'
 gem 'sunspot_rails', '>= 2.0.0.pre.120925'    	       
 gem 'sunspot_solr'
 gem 'kaminari'
+gem "sunspot_with_kaminari", '~> 0.2.0'				# Added (Rohit)
 gem  'spree_social', :git => "git://github.com/spree/spree_social.git"
 gem 'bluecloth'
 gem 'spree_product_groups', :git => 'git://github.com/spree/spree_product_groups.git'

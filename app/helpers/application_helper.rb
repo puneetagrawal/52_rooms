@@ -98,9 +98,30 @@ module ApplicationHelper
   end
 
   def link_to_sort(name) #Here is a little change, as we are not checking before that if '?' exist in url or not.
-    text = name
+    if (name == 'Rating')
+      name = 'Star_Rating'
+      text = 'Rating'
+    else
+      text = name
+    end
     url = request.url
     url += '?' unless url.split('?').count > 1 #this line is added
+    class_name = request.url.match("&sort=#{name}") ? 'active' : ''
+    unless name == "Relevance"
+      new_url = url.gsub(/&sort=[A-Za-z]\w*/, '') + "&sort=#{name}"   # Expression changes
+    else
+      class_name = 'active' if params[:sort] == "score"
+      new_url = url.gsub(/&sort=[A-Za-z]\w*/, '') + "&sort=score"  # Expression changes
+    end
+    
+    link_to text, new_url, :class => class_name
+  end
+
+
+  def get_active_class(name)
+    text = name
+    url = request.url
+    url += '?' unless url.split('?').count > 1 
     class_name = request.url.match("&sort=#{name}") ? 'active' : ''
     unless name == "Relevance"
       new_url = url.gsub(/&sort=[A-Za-z]*/, '') + "&sort=#{name}"
@@ -108,7 +129,7 @@ module ApplicationHelper
       class_name = 'active' if params[:sort] == "score"
       new_url = url.gsub(/&sort=[A-Za-z]*/, '') + "&sort=score"
     end
-    link_to text, new_url, :class => class_name
+    return class_name
   end
 
 

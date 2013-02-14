@@ -275,7 +275,7 @@ ActiveRecord::Schema.define(:version => 20130211134259) do
     t.text     "special_instructions"
     t.integer  "product_id"
     t.date     "check_in_date"
-    t.date     "check_ot_date"
+    t.date     "check_out_date"
     t.integer  "quantity"
     t.integer  "f2r_hotel_inventory_item_id"
   end
