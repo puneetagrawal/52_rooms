@@ -3,7 +3,7 @@
 - @products ||= grppd 
 =# @products
 - @products.each do |p|
-  %a.product_row{:href=>product_path(p)}
+  .product_row{:href=>product_path(p)}
     .sale_badge
       .small Sale
       - if p.is_coupon? || p.is_hotel_listing?
@@ -18,10 +18,18 @@
     .details
       %h2= p.name.titleize
       .star_rating= pretty_star_rating p.star_rating rescue ''
-      .location= p.city + ", " + p.country.truncate(30)   rescue ''
-      .overview= BlueCloth.new(p.description).to_html.html_safe.truncate(140) 
-      Prices starting from
-      %strike= number_to_currency p.striked_price rescue ''
-      %strong
-        %span.price= number_to_currency p.starting_price
-      
+      .location
+        - if p.city? 
+          =p.city + ", " + p.country.truncate(30)   rescue ''
+        - else
+          =p.country.truncate(30)   rescue ''
+      -#.overview= BlueCloth.new(p.description).to_html.html_safe.truncate(140)
+      .overview= p.description.truncate(140)
+      %span.overview= link_to "View Details", p
+      .fareDetails
+        %strike= number_to_currency p.striked_price rescue ''
+        %strong
+          %span.price= number_to_currency p.starting_price
+        .clear
+        %p.avgNight Avg/Night
+        %a.book{:href => product_path(p)} BOOK

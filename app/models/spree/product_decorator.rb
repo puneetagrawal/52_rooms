@@ -149,11 +149,13 @@ Spree::Product.class_eval do
   end
   
   def lowest_price_variant
-    v = variants.order(:price => "ASC").limit(1).first
+   # v = variants.order(:price => "ASC").limit(1).first
+    v = variants.first(:order => 'price asc')       # Changed (Rohit)
   end
 
   def highest_price_variant
-    v = variants.order(:price => "DESC").limit(1).first 
+    v = variants.first(:order => 'price desc')      # Changed (Rohit)
+   # v = variants.order(:price => "DESC").limit(1).first 
   end
 
 

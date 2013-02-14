@@ -6,11 +6,11 @@ Spree::ProductsController.class_eval do
     @search = Sunspot.search(Spree::Product) do
       keywords params[:keywords]
       facet :search_coupon
-      facet :city
-      facet :country
+      #facet :city
+      #facet :country
       facet :star_rating
       with  :is_active, true
-      facet :product_type 
+      #facet :product_type 
       facet :property_type
       facet :amenities
       with  :deleted_at,nil
@@ -41,8 +41,8 @@ Spree::ProductsController.class_eval do
       if params[:cn].present?
         with :country, params[:cn]
       end           
-      if params[:ht].present?
-        with :product_type, params[:ht]
+      if params[:pt].present?
+        with :product_type, params[:pt]
       end
       if params[:tp].present?
         with :property_type, params[:tp]
@@ -77,7 +77,11 @@ Spree::ProductsController.class_eval do
         if params[:sort] == 'Price'
           order_by :price
         end
+        if params[:sort] == 'Star_Rating'
+          order_by :star_rating
+        end
       end
+      paginate :page => params[:page], :per_page => 7       # Added (Rohit)
     end
     @products = @search.results
 
