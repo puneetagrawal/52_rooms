@@ -1,1 +1,39 @@
-%h1 Contact Us
+%section
+  %article
+    .middleSectionContact
+      .middleSectionLeft
+        .middleSectionLeftDetails
+          %h1 Address
+          %p
+            52 Rooms, 40 W 20th Street Floor 7,
+            New York, NY, 10011
+          %h1 Email
+          %p
+            %a{:href => "mailto:support@52ROOMS.COM"} support@52ROOMS.COM
+          %h1 Telephone
+          %p 1800-300-1234
+          %h1 Tweet
+          %p
+            To get real time answers to questions
+            about Jetsetter vacations,
+            tweet
+            %a{:href => "#"}@Ask52rooms
+      .middleSectionRight
+        %h1 Contact us
+        %p
+          We greatly appreciate members' feedback and strive to improve herever possible. Please
+          contact us using the details below.We are also looking to partner with the world's best
+          luxury travel suppliers. Click here for more information on how to submit your property
+          for review.
+        .contactForm
+          %form
+            %input{:type => "text", :value => "Enter your name"}/
+            .clear
+            %input{:type => "text", :value => "Enter your email id"}/
+            .clear
+            %input{:type => "text", :value => "Enter your subject"}/
+            .clear
+            %textarea Enter your message
+            %input{:type => "button", :value => "Submit"}/
+            .clear
+      .clear

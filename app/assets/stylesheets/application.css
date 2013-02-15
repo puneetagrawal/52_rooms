@@ -15,6 +15,9 @@
  *= require datepicker
  *= require custom_style.css
  *= require new_style.css
+ *= require checkout.css
+ *= require jquery.galleryview-3.0.css
+ *= require jquery-ui.css
  */
 
 @font-face {

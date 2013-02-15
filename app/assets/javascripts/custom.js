@@ -7,10 +7,68 @@ $(document).ready(function(){
     $("#check_out_calendar").hide('slow')
     $("#room_type").children().remove()
     $("#show_subtotal").text("$0.00")
-    $(this).text ("click on calendar to select")
-    $("#check_out_hotel").text ("(click on calendar to select)")
+    // $(this).text ("click on calendar to select")
+    // $("#check_out_hotel").text ("(click on calendar to select)")
     $("#no_room_alert").text("")
     $('#bookbtn').attr('disabled', true);
+  });
+
+
+  $('#order_qty').change(function(){
+     var room_qty=$(this).val();
+      var number_days=$("#number_days").val();
+      $('[id*=room_type_]').each(function(){      
+       if ($(this).attr('checked')){
+        id=$(this).attr('id').split('room_type_')[1]       
+        var sub_total_price=parseFloat(number_days*room_qty*$('#hidden_price_'+id).val()).toFixed(2)
+        //var hidden_avlbl=parseInt($("#hidden_avlbl_"+room_id).val());
+        var room_count = parseInt($("#hidden_avlbl_"+id).val());
+        if ( room_qty <= room_count) {         
+          $("#no_room_alert").text(room_qty+" available.")
+          $('#bookbtn').attr('disabled', false); 
+        }
+        else {
+          alert(room_qty+" rooms not Available.");
+          $("#no_room_alert").text(room_qty+" rooms not Available.")
+          $('#bookbtn').attr('disabled', true); 
+          return ;
+        }
+        $("#show_subtotal").text('$'+sub_total_price)
+      }
+    })
+  });
+
+  $('#order_quantity').change(function(){    
+     coupon_qty=$(this).val()
+  if(coupon_qty==""){
+   coupon_qty=0
+  }
+  $('.coupon_cart_rb').each(function(){     
+
+   if ($(this).attr('checked') ){
+     price_id=$(this).attr('id').split('_')[2]
+     current_price=$("#price_coupon_"+price_id).val()
+     sub_total_price=parseFloat(parseFloat(current_price)*parseInt(coupon_qty)).toFixed(1);
+       var coupon_count = $(this).data('on-hand');       
+       if ( coupon_qty <= coupon_count) {
+           //$("#no_room_alert").text(coupon_qty+" available.")
+           $('#bookbtn').attr('disabled', false);
+       }
+       else {
+           //$("#no_room_alert").text(coupon_qty+"  not Available.")
+           alert(coupon_qty+"  not Available.");           
+           $('#bookbtn').attr('disabled', true);
+           return;
+       }
+       
+       $("#show_subtotal").text('$'+sub_total_price)
+     current_price_html='<span class="WebRupee">Rs. </span>'+sub_total_price+'</span>'
+  $("#price_qty_coupon").html('')
+  $("#price_qty_coupon").append(current_price_html).formatCurrency({ region: 'en-IN' });
+   
+  }
+})
+
   });
 
   $("#check_out_hotel").click(function(){ 
@@ -19,7 +77,7 @@ $(document).ready(function(){
      $("#check_in_calendar").hide('slow')
      $("#show_subtotal").text("$0.00")
      $("#room_type").children().remove()
-     $(this).text ("(click on calendar to select)")
+     // $(this).text ("(click on calendar to select)")
      $("#no_room_alert").text("")
      $('#bookbtn').attr('disabled', true);
    }
@@ -130,7 +188,7 @@ function price_list_show(){
     calculate_subtotal();    
   }
 }
-$("#check_in_calendar").datepicker(calendar_options).show();
+$("#check_in_calendar").datepicker(calendar_options).hide();
 $("#check_out_calendar").datepicker(calendar_check_out).hide();
 
 
@@ -284,7 +342,8 @@ $('.tab_nav>li.tab').addClass('active');
 $('.tabcontent>li.tab_content').hide();
 $('.tabcontent>li.tab_content:first-child').show();
 
-$('.tab_nav .tab').click(function(){
+$('.tab_nav .tab').click(function(e){
+  e.preventDefault();
 	var tgt = '#' + $(this).attr('rel');
 	$('.tab_nav .tab.active').removeClass('active');
 	$('.tabcontent .tab_content').slideUp(100);
@@ -450,9 +509,13 @@ $("#clear_dates").live('click',function(e){
 })
 
 $(".coupon_cart_rb").live('click',function(){
-  coupon_qty=$("#number_coupon").val()
+  coupon_qty=$("#order_quantity").val()
   if(coupon_qty==""){
    coupon_qty=0
+  }
+  else if(coupon_qty>$(this).data('on-hand'))
+  {
+    alert(coupon_qty+" not available");
   }
   price_id=$(this).attr('id').split('_')[2]
   current_price=$("#price_coupon_"+price_id).val()
@@ -461,7 +524,7 @@ $(".coupon_cart_rb").live('click',function(){
   current_price_html='<span class="WebRupee">Rs. </span>'+sub_total_price+'</span>'
   $("#price_qty_coupon").html('')
   $("#price_qty_coupon").append(current_price_html).formatCurrency({ region: 'en-IN' });
-
+  $("#show_subtotal").text('$'+sub_total_price);
 
 })
 

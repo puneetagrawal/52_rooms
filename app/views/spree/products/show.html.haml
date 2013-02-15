@@ -1,49 +1,123 @@
-#hotel_title
-  .name
-    %h1= @product.name
-    = rating_stars_tag (@product.star_rating)
-    = address_tag @product
-  .prices
-    .small Rates from
-    .striked_price
-      %strike= number_to_indian_currency @product.striked_price rescue ' '
-      %span.small (Hotel Rate)
-    .sale_price
-      = number_to_indian_currency @product.starting_price rescue ' '
-      %span.small / Per Night
-#slider
-  = image_tag @product.images[0].attachment.url(:slider), :class => "slider_image" rescue ''
-  .sale_badge
-    Sale
-    = @product.sale_percent
-    \% off
-  #slider_nav
-    - @product.images.each do |img|
-      %a{:href=>"#"}
-        = image_tag img.attachment.url :slider_thumb
-#content
-  .left_col
-    = render :partial => "sharing"
-    = render :partial => "cart_form"
+%section
+  .head_section
+    %article
+      .hotelHead#hotel_title
+        .hotelHeadLeft.name
+          %h1
+            = @product.name
+          = rating_stars_tag (@product.star_rating)
+          %p
+            = address_tag @product
+          .twBs.fl
+            %a.twitter-share-button{"data-count" => "none", "data-lang" => "en", "data-related" => "jasoncosta", "data-size" => "small", :href => "https://twitter.com/share"} Tweet
+            :javascript
+              !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");  
+          .fbBs.fl
+            %iframe{:allowtransparency => "true", :frameborder => "0", :scrolling => "no", :src => "https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fyoutuktuk&send=false&layout=button_count&width=80&show_faces=true&font&colorscheme=light&action=like&height=21", :style => "border:none; overflow:hidden; width:80px; height:21px;;float:right;"}
+          .email.fl
+            %img{:src => "../assets/emailIcon.png"}/
+            %span Email
+          .clear
+        .hotelHeadRight.prices
+          %p Rates From
+          %h1.striked_price= number_to_indian_currency @product.striked_price rescue ' '
+          %span ( Hotel Rate )
+          .clear
+          %h2.sale_price= number_to_indian_currency @product.starting_price rescue ' '
+          %span / Per Night
+          .clear
+        .clear
+      .top_banner.height640#slider
+        #OnpurposeGallery.gv-gallery{:style => "visibility: visible; padding: 0px; position: relative; width: 1020px; height: 319px;"}
+          = image_tag @product.images[0].attachment.url(:slider), :width=>"959px", :height=>"546px;", :class => "slider_image" rescue ''
+          .gv-strip_wrapper#slider_nav{:style => "left: 0px ! important; position: absolute; overflow: hidden; top: 279px; width: 515px; height: 40px;"}
+            %ul.gv-filmstrip{:style => "visibility: visible; margin: 0px; list-style: none outside none; padding: 0px; width: 520px; position: absolute; z-index: 900; top: 0px; left: 0px; height: 40px;"}
+              - @product.images.each do |img|
+                %a{:href=>"#"}
+                  = image_tag img.attachment.url :slider_thumb
+                  
+        .clear
+%section
+  %article
+    .middleSectionHotel
+      .middleSectionHotelLeft
+        .middleSectionHotelLeftDetails
+          .hotelAmenities.right_col
+            %ul.tab_nav
+              - [:overview, :location_and_attractions, :rooms, :amenities_html, :reviews].each_with_index do |x, i|
+                %li
+                  - if i==0
+                    %a{:href => "#", :class=>"tab active", :rel=>x.to_s}= x.to_s.gsub("_", " ").titleize
+                  - else
+                    %a{:href => "#", :class=>"tab", :rel=>x.to_s}= x.to_s.gsub("_", " ").titleize
 
-  .right_col
-    %ul.tab_nav
-      - [:overview, :location_and_attractions, :rooms, :amenities_html, :reviews].each_with_index do |x, i|
-        %li
-          - if i==0
-            %a{:href => "#", :class=>"tab active", :rel=>x.to_s}= x.to_s.gsub("_", " ").titleize
-          - else
-            %a{:href => "#", :class=>"tab", :rel=>x.to_s}= x.to_s.gsub("_", " ").titleize
-    %ul.tabcontent
-      -  [:overview, :location_and_attractions, :rooms, :amenities_html, :reviews].each do |key|
-        %li.tab_content{:id=>key.to_s}          
-          %h2= key.to_s.gsub("_", " ").titleize    
-          = render "/spree/products/#{key.to_s}_product"      
-          = BlueCloth.new(@product.send(key)).to_html.html_safe 
+                / - if i==0    
+                /   %li{:class=>"tab active"}
+                /     %a{:href => "#", :rel=>x.to_s}= x.to_s.gsub("_", " ").titleize
+                / -else
+                /   %li{:class=>"tab"}
+                /     %a{:href => "#",  :rel=>x.to_s}= x.to_s.gsub("_", " ").titleize      
+              .clear
+            %ul.tabcontent
+              -  [:overview, :location_and_attractions, :rooms, :amenities_html, :reviews].each do |key|
+                %li.tab_content{:id=>key.to_s}                   
+                  -unless key.to_s =="overview" 
+                    .box.visible     
+                      %h1= key.to_s.gsub("_", " ").titleize    
+                  = render "/spree/products/#{key.to_s}_product"      
+                  = BlueCloth.new(@product.send(key)).to_html.html_safe 
+  
+            / .hotelAmenitiesContent.tabcontent
+            /   .box.overviewDetails{:style => "display: none;"}
+            /   .box{:style => "display: none;"}
+            /     %h1 Location & Attractions
+            /   .box{:style => "display: none;"}
+            /     %h1 Rooms
+            /   .box.visible{:style => "display: block;"}
+            /     %h1 Amenities
+            /   .box{:style => "display: none;"}l
+                
+      
+      .middleSectionHotelRight
+        -#.middleSectionHotelRight
+        = render :partial => "sharing"
+        = render :partial => "cart_form"
+        .middleSectionHotelRightContact
+          %h1
+            Contact
+            %span 1877 999  0680
+            %img{:src => "../assets/icon_mobile_phone_number.png"}/
+          .tripSummaryDetails
+            .emailFriend
+              %img{:src => "../assets/icon_Email_to_Friend.png"}/
+              %a{:href => "#"} Email to Friend
+              .clear
+            .addToFavorities
+              %img{:src => "../assets/icon_Add_to_favorites.png"}/
+              %a{:href => "#"} Email to Friend
+              .clear
+            .clear
+          %div
+            .twBs.fl
+              %iframe.twitter-share-button.twitter-count-none{:allowtransparency => "true", "data-twttr-rendered" => "true", :frameborder => "0", :scrolling => "no", :src => "https://platform.twitter.com/widgets/tweet_button.1360366574.html#_=1360820144827&count=none&id=twitter-widget-2&lang=en&original_referer=file%3A%2F%2F%2Froot%2FDesktop%2FHtml%2FhotelPage.html&related=jasoncosta&size=m&text=52%20ROOMS&url=file%3A%2F%2F%2Froot%2FDesktop%2FHtml%2FhotelPage.html", :style => "width: 55px; height: 20px;", :title => "Twitter Tweet Button"}
+              :javascript
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");        
+            .fbBs.fl
+              %iframe{:allowtransparency => "true", :frameborder => "0", :scrolling => "no", :src => "https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fyoutuktuk&send=false&layout=button_count&width=80&show_faces=true&font&colorscheme=light&action=like&height=21", :style => "border:none; overflow:hidden; width:80px; height:21px;;float:right;"}
+            .clear
+        .middleSectionHotelRightContact
+          %h1 Invite Your Entourage
+          .tripSummaryDetails
+            %p.entourageDetails
+              Invite your Friends and You'll earn $25
+              when they book their first trip
+              on 52 ROOMS
+            .clear
+            %input.entourageEmail{:type => "text", :value => "Email@example.com"}/
+            %a.addMore{:href => "#"} Add More
+            %input.sendInvitation{:type => "button", :value => "Send Invitations"}/
+            .clear
+      .clear
 
-         
-
-
-
-
-
+      
+     

@@ -41,8 +41,8 @@ Spree::ProductsController.class_eval do
       if params[:cn].present?
         with :country, params[:cn]
       end           
-      if params[:pt].present?
-        with :product_type, params[:pt]
+      if params[:ht].present?
+        with :product_type, params[:ht]
       end
       if params[:tp].present?
         with :property_type, params[:tp]
@@ -81,7 +81,7 @@ Spree::ProductsController.class_eval do
           order_by :star_rating
         end
       end
-      paginate :page => params[:page], :per_page => 2       # Added (Rohit)
+      paginate :page => params[:page], :per_page =>7      
     end
     @products = @search.results
 
@@ -212,7 +212,13 @@ Spree::ProductsController.class_eval do
 
 
 
-def calculate_subtotal     
+def calculate_subtotal
+    # unless current_order.blank?
+    #   current_order.line_items.each do |item|
+    #     item.destroy
+    #   end
+      
+    # end     
     @room_data_array=Array.new
     @check_date=(params[:check_out].to_date-params[:check_in].to_date).to_i
     id_array = Array.new   

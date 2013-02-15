@@ -8,6 +8,11 @@ $('ul.menu').delegate('li:not(.active)', 'click', function(e) {
     e.preventDefault();
 });
 
+$('ul.searchMenu').delegate('li:not(.active)', 'click', function() {
+   $(this).addClass('active').siblings().removeClass('active')
+    .parents('div.sortSearch').find('div.sortSearchContent').find('div.box').hide().eq($(this).index()).fadeIn(0);
+});
+
 $('#prev').click(function(){
 $('ul.menu').find('li.active').removeClass('active').prev().addClass('active');
 
@@ -48,3 +53,20 @@ $('ul.menu').find('li.active').removeClass('active').next().addClass('active');
 		});
 		
     });
+
+
+
+$(document).ready(function(){
+
+$('ul.hotelAmenitiesMenu').delegate('li:not(.active)', 'click', function() {
+   $(this).addClass('active').siblings().removeClass('active')
+    .parents('div.hotelAmenities').find('div.hotelAmenitiesContent').find('div.box').hide().eq($(this).index()).fadeIn(0);
+});
+
+$('.btnHotel').click(function(){
+            $(this).toggleClass('open');
+            $(".btnHotel li").click(function(){
+                $(this).parent('ul').parent('a.dropdown-toggle').find("p").text($(this).text());
+            });
+        });
+});

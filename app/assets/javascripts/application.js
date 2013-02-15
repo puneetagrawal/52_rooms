@@ -12,6 +12,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require new_style
+//= require jquery.galleryview-3.0.min
+//= require jquery-1.8.3
+//= require html5
 //= require jquery_new_home
 //= require_directory ./store
 

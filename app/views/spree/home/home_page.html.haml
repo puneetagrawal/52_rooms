@@ -1,5 +1,4 @@
 %wrapper
-  / header starts
   %section
     .head_section
       %article
@@ -53,8 +52,8 @@
                   %img{:src => "assets/prev.png"}/
                 %ul#controls.menu
                   - @featured.each do |f|
-                    %li
-                      %a.featured_nav_control{:href=>"#", :rel => "#{ f.images.first.attachment.url(:featured) unless f.images.blank?}", :data => {:country => (f.country.upcase if !f.country.nil?), :city => (f.city.upcase if !f.city.nil?), :name => f.name.titleize, :sale => f.sale_percent,:product_type=>f.product_type ,:time =>(distance_of_time_in_words_to_now(f.flash_close_on) if !f.flash_close_on.nil? )}, :url=> product_url(f)}= ( (f.city.nil? &&  f.product_type=="Coupon") ? f.coupon_text : f.city.upcase)
+                    %li.featured_nav_control
+                      %a{:href=>"#", :rel => "#{ f.images.first.attachment.url(:featured) unless f.images.blank?}", :data => {:country => (f.country.upcase if !f.country.nil?), :city => (f.city.upcase if !f.city.nil?), :name => f.name.titleize, :sale => f.sale_percent,:product_type=>f.product_type ,:time =>(distance_of_time_in_words_to_now(f.flash_close_on) if !f.flash_close_on.nil? )}, :url=> product_url(f)}= ( (f.city.nil? &&  f.product_type=="Coupon") ? f.coupon_text : f.city.upcase)
                 %a#next.next.fl
                   %img{:src => "assets/next.png"}/
                 .clear

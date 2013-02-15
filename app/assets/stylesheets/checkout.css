@@ -1,0 +1,348 @@
+/*-------------------------------Reservation Page  Css-------------------------------------------------------------------------------------*/
+
+
+/* Reservation */
+.btn {
+	background: #c99b35; /* Old browsers */
+	background: -moz-linear-gradient(top,  #c99b35 0%, #a67201 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c99b35), color-stop(100%,#a67201)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #c99b35 0%,#a67201 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #c99b35 0%,#a67201 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #c99b35 0%,#a67201 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #c99b35 0%,#a67201 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c99b35', endColorstr='#a67201',GradientType=0 ); /* IE6-9 */
+    box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5) inset, -1px -1px 2px rgba(0, 0, 0, 0.5) inset;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    line-height: 1.5em;
+    padding: 0.25em 1em;
+	border:1px solid #a3761a;
+}
+.reservePg .btn{
+	float:left;
+	height: auto !important;
+}
+.containerRooms {
+	background-color:#f6f6f5;
+	width:545px;
+	padding:15px;
+	margin-top:10px;
+	float:left;
+}
+.leftImgRoom {
+	float:left;
+	width:115px;
+	margin-right:20px;
+}
+
+.rightDetRoom {
+	width:340px;
+	float:left;
+}
+.rightDetRoom  h4{
+	font-size:18px;
+	color:#212121;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	margin-bottom:0.2em
+}
+.rightDetRoom span{
+	color:#a77509;
+	font-size:12px;
+	display:block;
+	line-height:18px;
+	margin-bottom:0.2em
+}
+.rightDetRoom i{
+	color:#626262;
+	font-size:12px;
+	font-style:normal;
+	display:block;
+	line-height:15px;
+	
+}
+a.viewDt{
+	font-size:12px;
+	color:#a77509;
+}
+.txtStyPurch{
+	font-size:12px;
+	color:#626262;
+	text-transform:uppercase;
+	clear:left;
+	margin-top:20px;
+
+	display:inline-block;
+}
+
+.reserveSection{
+	float:left;
+	width:100%;
+}
+.reserveSection h1{
+	padding-bottom:15px !important;
+}
+
+.reservePg {
+	padding-bottom:25px;
+}
+.ml10{
+	margin-left:10px;
+}
+
+.printSection {
+	float:left;
+	width:100%;
+}
+span.orderNum{
+	float:left;
+	width:100%;
+}
+.print{
+	float:right !important;
+	margin-right:23px;
+	width:75px;
+} 
+span.orderNum b{
+	font-size:18px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:#A77509;
+	font-weight:normal;
+	float:left;
+	padding-top:23px;
+}
+span.contactNum{
+	float:left;
+	width:573px;
+	margin-top:20px;
+	font-size:12px;
+}
+span.contactNum i{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	float:left;
+	width:100%;
+	color:#626262;
+}
+span.contactNum p{
+	color:#000;
+	border-top:1px dotted #929292;
+	float:left;
+	width:100%;
+	margin-top:4px;
+	
+}
+.reserveDetails{
+	float:left;
+	width:573px;
+	margin-top:20px;
+	border-top:1px dotted #929292;
+	border-bottom:1px dotted #929292;
+}
+.reserveDetails b{
+	font-size:15px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:#A77509;
+	font-weight:normal;
+	float:left;
+	width:100%;
+	padding:8px 0;
+}
+span.statusRoom {
+	border-bottom:1px dotted #929292;
+	width:100%;
+	float:left;
+	padding-bottom:5px;
+}
+span.statusRoom i{
+	float:left;
+	width:284px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:#626262;
+	font-size:12px;
+}
+p.bookedStatus{
+	float:left;
+	margin-top:5px;
+}
+p.bookedStatus span{
+	width:284px;
+	font-size:12px;
+	float:left;
+}
+
+.travellerBook {
+	float:left;
+	width:573px;
+	margin-top:5px;
+}
+.checkInOut{
+	width:284px;
+	float:left;
+}
+.checkInOut span{
+	float:left;
+	width:284px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:#626262;
+	font-size:12px;
+	font-style:italic;
+	border-bottom:1px dotted #929292;
+	margin-top:10px;
+	padding-bottom:5px;
+}
+.checkInOut p{
+	font-size:12px;
+	float:left;
+	margin-top:5px;
+}
+.travellerName{
+	float:left;
+	margin-left:50px; margin-top:10px;
+}
+.travellerName h4{
+	font-size:18px;
+}
+.totalSection {
+	float:left;
+	margin-top:25px;
+}
+.totalArea{
+	width:310px;
+	float:left;
+}
+.totalArea b{
+	float:left;
+	font-size:25px;
+	width:100%;
+
+}
+.totalArea i{
+	font-size:12px;
+	color:#626262;
+	float:left;
+	padding-top:10px;
+
+}
+.subTotalArea {
+	width:284px;
+	float:right;
+}
+
+.subTotalArea span{
+	float:left;
+	width:100%;
+	margin-bottom:10px;
+}
+
+.subTotalArea span i{
+	font-size:12px;
+	text-align:right;
+	width:100px;
+	padding-top:6px;
+	float:left;
+	
+}
+.subTotalArea span b{
+	margin-left:20px;
+	font-size:18px;
+	color:#626262;
+}
+.clrBrwn{color:#A77509 !important;}
+
+.cancelPolicy {
+	border:1px dotted #929292;
+	float:left;
+	width:552px;
+	padding:10px;
+	margin-top:10px;
+}
+.cancelPolicy h4{
+	color:#A77509;
+	font-size:15px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+}
+.cancelPolicy p{
+	font-size:12px;
+	margin-top:5px;
+}
+.policiesSec{
+	float:left;
+	width:573px;
+	margin-top:15px;
+}
+.policiesSec h1{
+	font-size:1.5em;
+	border-bottom:none;
+	padding:0;
+}
+.policiesSec p{
+	font-size:12px;
+	margin-top:10px;
+}
+.needHelpR {
+	background-color:#A77509;
+	float:left;
+	margin-top:15px;
+	width:573px;
+	
+}
+.needHelpR h1{
+	font-size:18px;
+	color:#fff;
+	font-family:Arial, Helvetica, sans-serif;
+	padding:10px 10px 10px 15px;
+	margin:0;
+	border-bottom:none;
+	float:left;
+}
+
+.callUs {
+	display:inline-block;
+	background-color:#fff;
+	width:500px;
+	padding:10px;
+	margin:0 0 10px 15px;
+	-webkit-box-shadow:  2px 2px 1px 1px rgba(0, 0, 0, .2);
+        
+        box-shadow:  2px 2px 1px 1px rgba(0, 0, 0, .2);
+}
+.callIcon {
+	background:url(../images/phone.png) no-repeat;
+	width:32px;
+	height:32px;
+	float:left;
+}
+.callUs p{
+	float:left;
+	width:400px;
+	font-size:12px;
+	color:#000;
+	margin-top:5px;
+	padding-left:20px;
+}
+
+.account-links {
+    list-style: none outside none;
+}
+.account-links li {
+    background: none repeat scroll 0 0 rgb(182, 133, 25);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    clear: both;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    float: left;
+    margin-right: 5px;
+}
+
+.account-links li a {
+    color: rgb(255, 255, 255);
+    display: block;
+    font-size: 14px;
+    padding: 10px;
+    width: 235px;
+}
+
+.account-links li a.active {
+    background: none repeat scroll 0 0 rgb(241, 241, 240);
+    color: rgb(98, 98, 98);
+}

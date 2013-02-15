@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 module ApplicationHelper  
   def number_to_indian_currency(number, html=true)
-    txt = html ? content_tag(:span, 'Rs.', :class => :WebRupee) : 'Rs.'
+    # txt = html ? content_tag(:span, 'Rs.', :class => :WebRupee) : 'Rs.'
+    txt ='Rs.'
     "#{txt} #{number.to_s.gsub(/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/, "\\1,")}".html_safe
   end
 
@@ -20,7 +21,7 @@ module ApplicationHelper
   end
 
   def address_tag(prod)
-    "<div class='address'>#{@product.street_address}, #{@product.city}, #{@product.state}</div>".html_safe
+    "#{@product.street_address}, #{@product.city}, #{@product.state}".html_safe
   end
 
 
@@ -42,8 +43,7 @@ module ApplicationHelper
     q.html_safe
   end
 
-  def link_to_add_filter_img(facet_row_name, facet_row_value, params, class_name="add_filter")
-    
+  def link_to_add_filter_img(facet_row_name, facet_row_value, params, class_name="add_filter")    
     r = {}
     r[:value] = facet_row_name
     r[:count] = facet_row_value
@@ -54,11 +54,12 @@ module ApplicationHelper
       url += "&#{k}=#{v.gsub(' ', '+')}"
       puts url
     end
-    text = "<input type='checkbox' onClick='a(\"#{url}\")'/><img src='/assets/Icon_#{@p}.png' /> #{r[:value]}<span class='small'>(#{r[:count]})</span>".html_safe
-    link_to text, url, :class => class_name
+    text = "<input type='checkbox' onClick='a(\"#{url}\")'/><img src='/assets/Icon_#{@p}.png' /><span>#{r[:value]}</span>".html_safe
+    # link_to text, url, :class => class_name
   end 
 
   def link_to_add_filter(facet_row_name, facet_row_value, params, class_name="add_filter")
+
     r = {}
     r[:value] = facet_row_name
     r[:count] = facet_row_value
@@ -69,8 +70,12 @@ module ApplicationHelper
       url += "&#{k}=#{v.gsub(' ', '+')}"
       puts url
     end
-    text = "<input type='checkbox' onClick='a(\"#{url}\")' />#{r[:value]}<span class='small'>(#{r[:count]})</span>".html_safe
-    link_to text, url, :class => class_name
+    unless params[:st].blank?
+      text = "<input type='checkbox' onClick='a(\"#{url}\")' /><div class='star_rating'>#{pretty_star_rating r[:value]}</div><span>#{r[:value]} Stars+</span>".html_safe
+    else  
+      text = "<input type='checkbox' onClick='a(\"#{url}\")' /><span>#{r[:value]}</span>".html_safe
+    end
+    # link_to text, url, :class => class_name
   end  #added checkbox and Image in Text, for which We are creating the link to add a filter 
 
 
@@ -81,8 +86,13 @@ module ApplicationHelper
     params.each do |k, v|
       url = url.sub("&#{k}=#{v.gsub(' ', '+')}", '')
     end
-    text = "<input type='checkbox' checked='true'  onClick='a(\"#{url}\")'> #{text}".html_safe
-    link_to text, url, :class => class_name
+    unless params[:st].blank?
+      text = "<input type='checkbox' checked='true' onClick='a(\"#{url}\")' /><div class='star_rating'>#{pretty_star_rating text}</div><span>#{text} Stars+</span>".html_safe
+    else  
+      text = "<input type='checkbox' checked='true' onClick='a(\"#{url}\")'><span>#{text}</span>".html_safe
+    end
+    
+    # link_to text, url, :class => class_name
   end #added a checked checkbox and Image in Text, for which We are creating the link to remove a filter /Gopal/
 
 
@@ -93,8 +103,8 @@ module ApplicationHelper
     params.each do |k, v|
       url = url.sub("&#{k}=#{v.gsub(' ', '+')}", '')
     end
-    text = "<input type='checkbox' checked='true'  onClick='a(\"#{url}\")'> <img src='/assets/Icon_#{@p}.png' /> #{text}".html_safe
-    link_to text, url, :class => class_name
+    text = "<input type='checkbox' checked='true'  onClick='a(\"#{url}\")'> <img src='/assets/Icon_#{@p}.png' /> <span>#{text}</span>".html_safe
+    # link_to text, url, :class => class_name
   end
 
   def link_to_sort(name) #Here is a little change, as we are not checking before that if '?' exist in url or not.

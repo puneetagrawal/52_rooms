@@ -3,6 +3,8 @@ Spree::Order.class_eval do
   attr_accessible :booking_date, :check_in_date, :check_out_date, :f2r_hotel_inventory_item_id,
    :product_id, :quantity, :email, :line_items 
   belongs_to :spree_line_item
+  #validates :email, :presence => false, :if => :require_email
+  #validates :email, :allow_blank => true
   #accepts_nested_attributes_for :spree_line_item
 
   checkout_flow do
@@ -10,6 +12,7 @@ Spree::Order.class_eval do
     go_to_state :payment, :if => lambda { |order| order.payment_required? }
     go_to_state :confirm, :if => lambda { |order| order.confirmation_required? }
     go_to_state :complete
+    remove_transition :from => :delivery, :to => :confirm
   end
 
   state_machine do
@@ -47,7 +50,7 @@ Spree::Order.class_eval do
        current_item
      end
 
-
+     
 =begin
   def add_details(product_id)
 

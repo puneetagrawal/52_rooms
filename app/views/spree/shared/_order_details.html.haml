@@ -1,0 +1,100 @@
+.middleSectionLeftBilling
+  .middleSectionLeftBillingDetails
+    %ul.account-links
+      %li
+        %a{:href => "#"} My Account
+      %li
+        %a.active{:href => "#"} Reservations
+      %li
+        %a{:href => "#"} Invite Friends
+      %li
+        %a{:href => "#"} Help
+      %li
+        %a{:href => "#"} Logout
+    .clear
+.middleSectionRight    
+  .reservePg
+    .reserveSection
+      %h1 Your Reservation
+      .containerRooms
+        %span.leftImgRoom        
+          - item =  @order.line_items.last
+          - if item.variant.images.length == 0
+            = link_to small_image(item.variant.product), item.variant.product
+          - else
+            = link_to image_tag(item.variant.images.first.attachment.url(:small)), item.variant.product
+        .rightDetRoom
+          %h4= item.variant.product.name
+          %span
+            - address=order.bill_address
+            =address.address1
+            =address.address2
+            =address.city
+            %br          
+            =address.state_name
+            =address.country.name
+    .printSection
+      %span.orderNum
+        %b= "Order Number "+item.order.number.to_s
+      %span.contactNum
+        %i Contact Phone Number
+      %p       
+        =order.bill_address.phone
+      .reserveDetails
+        %span.statusRoom
+          %i Status
+          %i Room Type
+        %p.bookedStatus
+          %span 
+            Booked on
+            =item.created_at.strftime("%B %d, %Y")          
+          %span
+            = "(" + variant_options(item.variant) + ")" unless item.variant .option_values.empty? 
+            Cenote Deluxe Junior Suite- Standard Rate Plan
+        .travellerBook
+          .checkInOut
+            %span Check In / Check Out
+            %p 
+              =item.check_in_date.strftime("%B %d, %Y") 
+              =" - "
+              =item.check_out_date.strftime("%B %d, %Y")             
+          %span.travellerName
+            %h4 Traveler:
+            %b= order.credit_cards.last.first_name+" "+order.credit_cards.first.last_name                    
+      .totalSection
+        .totalArea
+          %b Total
+          %i 
+            Charged to your card ending
+            =order.credit_cards.last.last_digits
+            in  on 
+            / =order.credit_cards.last.strftime("%B")
+            March 15, 2012
+        .subTotalArea
+          %span
+            %i Total cost
+            %b.clrBrwn= money(item.order.item_total)
+      .cancelPolicy
+        %h4 Cancellations Policy
+        %p No cancellations, refunds or modifications are allowed, and payment is charged at the time of purchase. No-shows will be charged in full.
+      .needHelpR
+        %h1 Need help with your reservation?
+        .callUs
+          %span.callIcon
+          %p
+            Call us at 1-800-EXPEDIA (1-800-397-3342) or 1-404-728-8787
+            %br>/
+            For faster service, mention itinerary #1
+      .policiesSec
+        %h1 Policies
+        %p Check in: 3 PM
+        %p Minimum Check-In Age: 18
+        %p Transfer Policy: Transfers to/from Cancún International Airport (CUN), about 28 miles away, are not included. Taxis are approximately $70, each way.
+        %p Pet Policy: Pets are not permitted.
+        %p Internet Access: Complimentary WiFi.
+        %p Smoking Policy: Smoking is not permitted.
+        %p
+          All taxes and fees imposed by the property, unless otherwise stated, will be added at the time of purchase on 52 ROOMS. Guests are responsible for all incidental charges during their stay (e.g., additional person fees, room service, minibar, in-room movies, etc.).
+    .form-buttons{"data-hook" => "buttons"}
+      = submit_tag t(:place_order), :class => 'makePayment martop10 ',:style=>"cursor:pointer;clear"
+    .clear

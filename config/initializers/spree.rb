@@ -10,3 +10,4 @@ Spree.config do |config|
   # Uncomment to override the default site name.
   config.site_name = "52 Rooms"
 end
+Spree::Auth::Config[:registration_step]=false

@@ -37,7 +37,9 @@
    font-weight:bold !important;
    font-size: 11pt;
 }
-.ui-datepicker {font-size: 11pt !important;}
+  div.ui-datepicker {
+    font-size: 90%;
+}
 /*.changecolor{ background-color: blue !important;}*/
 /*.ui-datepicker-current-day .ui-state-active { background: #000000 !important; }*/
 /*.ui-datepicker-today a{ background-color: blue !important;}*/
@@ -153,7 +155,7 @@ outline:none;
    color: #a77509;
    cursor:pointer;
    height:26px;
-   width:68px!important;
+   width:68px;
    text-align:center;
 }
 .searchMenu li a

@@ -1,4 +1,4 @@
--room_type_all = [1, 2, 3]
+/ -room_type_all = [1, 2, 3]
 var append_html=""
 var room_qty=$("#order_qty").val();
 $("#number_days").val("#{@check_date}")
@@ -14,23 +14,23 @@ $("#room_type").children().remove()
     $("#no_room_alert").text("1 available.");}             
   -else 
     -checked=''
-  -room_type_all.delete_if {|v| v == data[:room_type_id]}
+  / -room_type_all.delete_if {|v| v == data[:room_type_id]}
   -price_room=data[:price]/@check_date
   -available=data[:available]                   
   -# $("#room_available").val("#{available}")
 
   -price_room=number_with_precision(price_room.to_f, :precision => 2)
-  append_html += "<div><input type='radio' value= #{data[:room_type_id]} name='room_type' id='room_type_#{data[:room_id]}' #{checked}>"+
-  "<span class='small'> #{data[:room_name]}</span> <span class='small'>$#{price_room}</span>"+
+  append_html += "<div class='roomDet'><input type='radio' value= #{data[:room_type_id]} name='room_type' id='room_type_#{data[:room_id]}' #{checked}>"+
+  "<span class='roomType small'> #{data[:room_name]}</span> <h2 class='roomTypePrice small'>$#{price_room} /Night</h2><p class='roomTypeDetails'>1 Sentence from the API (ideally room size and view)...</p>"+"<a class='details' href='#''>Details</a><div class='clear'></div>"+
   "<input id='hidden_price_#{data[:room_id]}' type='hidden' value='#{price_room}' name='product_id'>"+ "<input id='hidden_avlbl_#{data[:room_id]}' type='hidden' value='#{available}' name='product_id'></div>"
 
--room_type_all.each do |data| 
-  -if data==1
-    append_html += "<input type='radio' value='' disabled='' ><span class='small'>Honeymoon suite</span><span class='small' style='margin-left:10px'>Not available</span><br/>"
-  -elsif data==2
-    append_html += "<input type='radio' value='' disabled='' ><span class='small'>Single Bed</span><span class='small'style='margin-left:10px'>Not available</span><br/>"
-  -elsif data==3
-    append_html += "<input type='radio' value='' disabled='' ><span class='small'>Double Bed</span><span class='small'style='margin-left:10px'>Not available</span><br/>"
+/ -room_type_all.each do |data| 
+/   -if data==1
+/     append_html += "<input type='radio' value='' disabled='' ><span class='small'>Honeymoon suite</span><br><span class='small' style='margin-left:10px'>Not available</span><br/>"
+/   -elsif data==2
+/     append_html += "<input type='radio' value='' disabled='' ><span class='small'>Single Bed</span><span class='small'style='margin-left:10px'>Not available</span><br/>"
+/   -elsif data==3
+/     append_html += "<input type='radio' value='' disabled='' ><span class='small'>Double Bed</span><span class='small'style='margin-left:10px'>Not available</span><br/>"
         
 $("#room_type").append(append_html) 
 $("#room_type").show()

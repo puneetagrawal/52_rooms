@@ -65,7 +65,7 @@ module Spree
 =end
 
       end
-      respond_with(@order) { |format| format.html { redirect_to cart_path } }
+      respond_with(@order) { |format| format.html { redirect_to checkout_path } }
     end
     
     

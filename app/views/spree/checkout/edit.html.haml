@@ -1,20 +1,66 @@
 - content_for :head do
   = javascript_include_tag states_url(:format => :js)
-#main_container
-  #checkout{"data-hook" => ""}
-    = render :partial => 'spree/shared/error_messages', :locals => { :target => @order }
-    .row{"data-hook" => "checkout_header"}
-      %h3.columns.three.alpha{"data-hook" => "checkout_title"}= t(:checkout)
-      .columns.thirteen.omega{"data-hook" => "checkout_progress"}= checkout_progress
-    .row{"data-hook" => "checkout_content"}
-      %div{:class => "columns #{if @order.state != 'confirm' then 'alpha twelve' else 'alpha omega sixteen' end}", "data-hook" => "checkout_form_wrapper"}
-        = semantic_form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form|
-          - unless @order.email?
-            %p.field{:style => "clear: both"}
-              = form.label :email
-              %br/
-              = form.text_field :email
-          = render @order.state, :form => form
-      - if @order.state != 'confirm'
-        #checkout-summary.columns.omega.four{"data-hook" => "checkout_summary_box"}
-          = render :partial => 'summary', :locals => { :order => @order }
+.middleSectionContact{:style=>"margin-top:-50px;"}
+  / .middleSectionLeftBilling
+  /   .middleSectionLeftBillingDetails
+  /     %ul.account-links
+  /       %li
+  /         %a{:href => "#"} My Account
+  /       %li
+  /         %a.active{:href => "#"} Reservations
+  /       %li
+  /         %a{:href => "#"} Invite Friends
+  /       %li
+  /         %a{:href => "#"} Help
+  /       %li
+  /         %a{:href => "#"} Logout
+  /     .clear
+  %body
+  %wrapper
+    -unless @order.state == 'confirm'
+      %section
+      .head_section
+        %article
+        / # - @order.line_items.last.each do |item|
+        -item=@order.line_items.last
+        .top_banner
+          - if item.variant.images.length == 0
+            %div{:class=>"biiling_page_cs_image"}
+              =slider_image(item.variant.product)
+          - else
+            - image = item.variant.images.first.attachment.url(:slider)
+            = image_tag(image, :height=>'470', :width=>'957')
+          .selected_place_contentContact.discount_place.pdl0
+            .selectedPlaceLeft
+              %p= item.variant.product.name
+              %span= item.variant.product.city + ","
+              %span= item.variant.product.state + ","
+              %span= item.variant.product.country
+              %h2 July 11 - July 12, 2012
+            .selectedPlaceRight
+              %h1 Prefer booking over the phone?
+              %h2 Call 1800 3000
+              %p Local call from any phone.
+              .clear
+            .clear
+  #checkout.reservePg{"data-hook" => ""}
+    = render :partial => 'spree/shared/error_messages', :locals => { :target => @order }    
+    /.row{"data-hook" => "checkout_header"}
+    /  %h3.columns.three.alpha{"data-hook" => "checkout_title"}= t(:checkout)
+    /  .columns.thirteen.omega{"data-hook" => "checkout_progress"}= checkout_progress
+    / .reserveSection
+    /   %h1 Your Reservation
+    /   .containerRooms
+    /     %span.leftImgRoom
+    /     .rightDetRoom
+    /       %h4
+    -#.row{"data-hook" => "checkout_content"}
+    / %div{:class => "columns #{if @order.state != 'confirm' then 'alpha twelve' else 'alpha omega sixteen' end}", "data-hook" => "checkout_form_wrapper"}
+    = semantic_form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form|
+      - unless @order.email?
+        = form.hidden_field :email, :value =>"guest@52rooms.com"         
+      = render @order.state, :form => form
+    - if @order.state != 'confirm'
+      #checkout-summary.columns.omega.four{"data-hook" => "checkout_summary_box"}
+        / = render :partial => 'summary', :locals => { :order => @order }
+  

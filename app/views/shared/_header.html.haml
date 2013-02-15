@@ -29,16 +29,27 @@
               = link_to "logout", destroy_user_session_path
       .clear
     .clear
-
-.headerSection
-  %article
-    %a.fl.mrtop7{:href => "/"}
-      = image_tag "logo.png"
-    .search.fr
-      #search
-        = form_tag products_path, :method => :get do
-          = text_field_tag "search", params[:keywords], :placeholder=>"Enter destination / hotel name", :name => "keywords"
-      %a{:href => "#"}
-    .clear
+.section    
+  .head_section
+    .headerSection
+      %article
+        .fl.logo
+          %a.mrtop7{:href => "/"}
+            = image_tag "logo.png"
+        .middleNav.fl
+          %ul
+            %li{:id=>"nav_sales", :class=>"#{@current == 'products' ? 'active' : ''}"}
+              %a{:href=>"/sales"} Sales
+            %li{:id=>"nav_destinations", :class => "#{@current == 'destinations' ? 'active' : ''}"}
+              %a{:href=> destinations_path} Destinations
+            - ['Tours', 'Inspiration'].each_with_index do |el, i|
+              %li{:id=>"nav_#{el.downcase}"}
+                %a{:href=>"/#{el.downcase}"}= el
+        .search.fr
+          #search
+            = form_tag products_path, :method => :get do
+              = text_field_tag "search", params[:keywords], :placeholder=>"Enter Destination / Hotel Name", :name => "keywords"
+          %a{:href => "#"}
+        .clear
 
       
