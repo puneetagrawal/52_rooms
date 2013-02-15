@@ -81,7 +81,7 @@ Spree::ProductsController.class_eval do
           order_by :star_rating
         end
       end
-      paginate :page => params[:page], :per_page => 7       # Added (Rohit)
+      paginate :page => params[:page], :per_page => 2       # Added (Rohit)
     end
     @products = @search.results
 

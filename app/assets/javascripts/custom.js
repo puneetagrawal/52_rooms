@@ -310,15 +310,16 @@ $('#slider_nav a').click(function(){
 
 
     // Home Page Featured
-    $('.featured_nav_control').first().addClass('active');
-    $('.featured_nav_control').click(function(){
-     var new_src = $(this).attr('rel');
-     var product_type=$(this).data('product_type');
+    $('.featured_nav_control').children().first().addClass('active');
+    $('.featured_nav_control').click(function(e){
+     e.preventDefault();
+     var new_src = $(this).children().attr('rel');
+     var product_type=$(this).children().data('product_type');
      $('.main_featured_image').attr('src', new_src);
-     var new_sale = $(this).data('sale');
-     var new_city = "// " + $(this).data('city') + ", " + $(this).data('country');	
-     var new_name = $(this).data('name');
-     var new_time = $(this).data('time');
+     var new_sale = $(this).children().data('sale');
+     var new_city = "// " + $(this).children().data('city') + ", " + $(this).children().data('country');	
+     var new_name = $(this).children().data('name');
+     var new_time = $(this).children().data('time');
       if(product_type=='Coupon')
       {
           $('.info .timer').hide();
@@ -329,9 +330,9 @@ $('#slider_nav a').click(function(){
           $('.info .timer ').show();
           $('.info .hotel_name .location').show();
       }
-     var new_path = $(this).data('url');
-     $('.featured_nav_control').removeClass('active');
-     $(this).addClass('active');
+     var new_path = $(this).children().data('url');
+     $('.featured_nav_control').children().removeClass('active');
+     $(this).children().addClass('active');
      $('.info, .info .big_discount').slideUp(20);
      $('.info .big_discount').text(new_sale + " % off");
      $('.info .hotel_name .location').text(new_city);

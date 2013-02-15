@@ -2005,3 +2005,6 @@ ul.menu li.active
 {
 background: url(../assets/active.png) no-repeat scroll 0 0 transparent;
 }
+.featured_nav_control{
+    cursor: pointer;
+}
