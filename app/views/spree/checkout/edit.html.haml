@@ -33,10 +33,15 @@
           .selected_place_contentContact.discount_place.pdl0
             .selectedPlaceLeft
               %p= item.variant.product.name
-              %span= item.variant.product.city + ","
-              %span= item.variant.product.state + ","
+              %span //
+              %span= item.variant.product.city 
+              - if item.variant.product.city.present? 
+                %span,
+              %span= item.variant.product.state
+              - if item.variant.product.state.present? 
+                %span,
               %span= item.variant.product.country
-              %h2 July 11 - July 12, 2012
+              %h2= (item.check_in_date.to_formatted_s(:rfc822) + " - " + item.check_out_date.to_formatted_s(:rfc822))
             .selectedPlaceRight
               %h1 Prefer booking over the phone?
               %h2 Call 1800 3000

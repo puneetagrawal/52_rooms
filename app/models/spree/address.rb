@@ -5,10 +5,14 @@ module Spree
 
     has_many :shipments
 
-    validates :city, :zipcode, :state_name, :country, :email, :presence => true
+    validates :city, :zipcode, :country, :mobile_num, :customer_name, :state_name, :presence => true
     validates :phone, :presence => true, :if => :require_phone?
-    validates_format_of :email, :with => /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]+\z/i
-    validates_format_of :customer_name, :with => /^[^0-9`!@#\$%\^&*+_=]+$/
+    validates :mobile_cc, :presence =>true, :length => { :is => 4 }
+    validates :mobile_num, :numericality=>true, :length=> { :is =>10 }
+    validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }
+    validates :phone_std, :presence=>true, :numericality=>true, :length=>{ :in=>2..4 }
+    validates :phone_cc, :presence=>true, :length=>{ :is => 4 }, :format=>{ :with => /[+]+\d/, :on=>:create}
+
     # validate :state_validate
 
     attr_accessible :firstname, :lastname, :address1, :address2,

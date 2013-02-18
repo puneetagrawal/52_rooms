@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211134259) do
+ActiveRecord::Schema.define(:version => 20130214132727) do
 
   create_table "f2r_hotel_inventory_items", :force => true do |t|
     t.integer  "product_id"
@@ -66,6 +66,12 @@ ActiveRecord::Schema.define(:version => 20130211134259) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.string   "company"
+    t.string   "email"
+    t.string   "customer_name"
+    t.string   "mobile_cc"
+    t.string   "mobile_num"
+    t.string   "phone_cc"
+    t.string   "phone_std"
   end
 
   add_index "spree_addresses", ["firstname"], :name => "index_addresses_on_firstname"
